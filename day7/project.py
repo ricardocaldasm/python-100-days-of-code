@@ -12,8 +12,7 @@ print(
 )
 
 # criando a palavra
-# word = random_word.RandomWords().get_random_word()
-word = "asd"
+word = random_word.RandomWords().get_random_word()
 print(word)
 
 # criando a lista com cada letra da palavra
@@ -21,14 +20,14 @@ word_list = list()
 for p in word:
     word_list.append(p)
 
-print(word_list)
+# print(word_list)
 
 # criando a lista com underline de cada letra
 underline = list()
 for i in range(len(word)):
     underline.append("_")
 
-lose_life = 6
+lives = 6
 
 while True:
     # mostrando a lista de underline
@@ -37,6 +36,9 @@ while True:
 
     # mostrando o número de letras da palavra
     print(f"({len(underline)})", "\n")
+
+    # mostra o número de vidas
+    print(f"{lives} lives")
 
     # entrada da letra
     letter = str(input("Guess a letter: "))
@@ -48,8 +50,8 @@ while True:
                 underline[p] = letter
     else:
         print("FORCA")  # fazer a forca
-        lose_life -= 1
-        if lose_life == 0:
+        lives -= 1
+        if lives == 0:
             print("GAME OVER")
             break
 
