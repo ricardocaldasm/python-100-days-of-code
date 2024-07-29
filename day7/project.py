@@ -1,4 +1,5 @@
 import random_word
+from replit import clear #limpa a tela do console
 
 print(
     r"""
