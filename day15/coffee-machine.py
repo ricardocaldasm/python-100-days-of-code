@@ -34,9 +34,8 @@ def sufficient_resource(order_ingredients):
     for ingredient in order_ingredients:
         if order_ingredients[ingredient] > resources[ingredient]:
             print(f"Sorry, there is not enough {ingredient}")
-            return False
-        else:
-            return True
+            return False    
+    return True
 
 def process_coins(drink):
     print(f"The {drink} costs ${MENU[drink]["cost"]}. Please insert coins.")
@@ -51,15 +50,20 @@ def is_transaction_successful(money_received, drink_cost):
     if money_received >= drink_cost:
         change = money_received - drink_cost
         print(f"Here is ${change} in change.")
+        global profit
+        profit += drink_cost
+        return True
     else:
         print(f"Sorry that's not enough money. Money refunded.")
+        return False
 
-def profit(money_received, drink_cost):
-    if money_received >= drink_cost:
-        profit_made += money_received
-        return profit_made
 
-profit_made = 0
+def make_coffee(drink_name, order_ingredients):
+    for ingredient in order_ingredients:
+        resources[ingredient] -= order_ingredients[ingredient]
+    print(f"Here is your {drink_name}!")
+
+profit = 0
 
 while True:
     choice = str(
@@ -68,15 +72,14 @@ while True:
     if choice == "off":
         break
     elif choice == "report":
-        print(
-            f"Water: {resources['water']}ml\nMilk: {resources['milk']}m\nCoffee: {resources['coffee']}ml\nProfit: {profit_made}"
-        )
+        print(f"Water: {resources['water']}ml\nMilk: {resources['milk']}m\nCoffee: {resources['coffee']}ml\nProfit: ${profit}")
     elif choice in MENU:
         drink = MENU[choice]
         if sufficient_resource(drink["ingredients"]):
             payment = process_coins(choice)
-        is_transaction_successful(payment, drink["cost"])
-        profit_made = profit(payment, drink["cost"])
+            if is_transaction_successful(payment, drink["cost"]):
+                make_coffee(choice, drink["ingredients"])
+
     else:
         print("Invalid input.")
 
