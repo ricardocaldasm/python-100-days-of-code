@@ -21,3 +21,10 @@ user_2 = User("002","Gaia")
 # user_2.id = "002"
 # user_2.username = "Gaia"
 print(user_2.id, user_2.username, user_2.followers)
+
+user_1.follow(user_2) #user_1: object | follow(): method
+print(user_1.followers)
+print(user_1.following)
+print(user_2.followers)
+print(user_2.following)
+
