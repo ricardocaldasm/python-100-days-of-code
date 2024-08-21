@@ -1,37 +1,20 @@
 from turtle import Turtle, Screen
 
-
-def move_forward():
-    tim.forward(20)
-
-
-def move_backward():
-    tim.backward(20)
-
-
-def turn_left():
-    tim.left(45)
-
-
-def turn_right():
-    tim.right(45)
-
-
-def clear():
-    tim.clear()
-    tim.penup()
-    tim.home()
-    tim.pendown()
-
-
-tim = Turtle()
 screen = Screen()
+screen.setup(width=500, height=400)
+user_bet = screen.textinput(title="Make your bet", prompt="Enter a color: ")
+colors = ["red", "orange", "yellow", "green", "blue", "purple", "black"]
 
-screen.listen()
-screen.onkey(move_forward, "w")
-screen.onkey(move_backward, "s")
-screen.onkey(turn_left, "a")
-screen.onkey(turn_right, "d")
-screen.onkey(clear, "c")
+y_pos = 150
+
+for turtle_index in range(7):
+    turtle_1 = Turtle(shape="turtle")  # instance | they can have different attributes
+# turtle_2 = Turtle(shape="turtle")  # instance
+    turtle_1.penup()
+    turtle_1.color(colors[turtle_index])
+    turtle_1.goto(-200, y_pos)
+    y_pos -= 50
+
+
 
 screen.exitonclick()
