@@ -7,7 +7,16 @@ user_bet = screen.textinput(title="Make your bet", prompt="Enter a color: ")
 colors = ["red", "orange", "yellow", "green", "blue", "purple", "black"]
 all_turtles = list()
 
+def finish_line_race():
+    finish_line = Turtle()
+    finish_line.speed(0)
+    finish_line.hideturtle()
+    finish_line.penup()
+    finish_line.goto(220,200)
+    finish_line.pendown()
+    finish_line.goto(220,-200)
 
+finish_line_race()
 
 y_pos = 150
 
@@ -33,7 +42,7 @@ while is_race_on:
                 print(f"You've won! The {winning_color} is the winner.")
             else:
                  print(f"You've lost! The {winning_color} is the winner.")
-        rand_distance = randint(0,20)
+        rand_distance = randint(0,10)
         turtle.forward(rand_distance)
 
 screen.exitonclick()
