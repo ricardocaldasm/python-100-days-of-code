@@ -11,7 +11,8 @@ class Scoreboard(Turtle):
     ) -> None:
         super().__init__(shape, undobuffersize, visible)
         self.score = 0
-        self.high_score = 0
+        with open(r"day24\data.txt") as data:
+            self.high_score = int(data.read())
         self.penup()
         self.color("white")
         self.goto(0, 260)
@@ -20,14 +21,20 @@ class Scoreboard(Turtle):
 
     def update_scoreboard(self):
         self.clear()
-        self.write(f"Score: {self.score} | High Score: {self.high_score}", align=ALIGN, font=FONT)
+        self.write(
+            f"Score: {self.score} | High Score: {self.high_score}",
+            align=ALIGN,
+            font=FONT,
+        )
 
     def increase_score(self):
         self.score += 1
         self.update_scoreboard()
 
-    def reset_game(self):
+    def reset_scoreboard(self):
         if self.score > self.high_score:
             self.high_score = self.score
+            with open(r"day24\data.txt", mode="w") as data:
+                data.write(f"{self.high_score}")
         self.score = 0
         self.update_scoreboard()

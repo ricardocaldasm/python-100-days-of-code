@@ -39,13 +39,13 @@ while game_is_on:
         or snake.head.ycor() > 290
         or snake.head.ycor() < -290
     ):
-        scoreboard.reset_game()
+        scoreboard.reset_scoreboard()
         snake.reset_snake()
 
     # Detect collision with tail
     for segment in snake.segments[1:]:  # Do not consider the head
         if snake.head.distance(segment) < 10:
-            scoreboard.reset_game()
+            scoreboard.reset_scoreboard()
             snake.reset_snake()
 
 
