@@ -24,6 +24,10 @@ student_dict = {"student": ["Angela", "James", "Lily"], "score": [56, 76, 98]}
 student_data_frame = pandas.DataFrame(student_dict)
 print(student_data_frame)
 print("-" * 20)
-for index, row in student_data_frame.iterrows():
+for index, row in student_data_frame.iterrows(): #iterrows only in Pandas
     print(index)
     print(row)  # possible row.student or row.score
+    print(row.student)
+    print(row.score)
+
+
