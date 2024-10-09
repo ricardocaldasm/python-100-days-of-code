@@ -11,8 +11,16 @@ WORK_MIN = 2
 SHORT_BREAK_MIN = 1
 LONG_BREAK_MIN = 3
 reps = 0
+timer = None
 
 # ---------------------------- TIMER RESET ------------------------------- #
+def reset_timer():
+    window.after_cancel(timer)
+    canvas.itemconfig(timer_text, text="")
+    title_label.config(text="Timer")
+    check_label.config(text="")
+    global reps
+    reps = 0
 
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
@@ -41,9 +49,15 @@ def countdown(count):
     count_sec = count % 60
     canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec:02}")
     if count > 0:
-        window.after(25, countdown, count - 1)
+        global timer
+        timer = window.after(25, countdown, count - 1)
     else:
         start_timer()
+        mark = ""
+        work_session = int(reps / 2)
+        for _ in range(work_session):
+            mark += "\u2713"
+        check_label.config(text=mark)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -51,14 +65,10 @@ window = tkinter.Tk()
 window.title("Pomodoro")
 window.config(padx=100, pady=50, bg=YELLOW)
 
-title_label = tkinter.Label(
-    text="Timer", font=(FONT_NAME, 30, "bold"), bg=YELLOW, fg=GREEN
-)
+title_label = tkinter.Label(text="Timer", font=(FONT_NAME, 30, "bold"), bg=YELLOW, fg=GREEN)
 title_label.grid(row=0, column=1)
 
-check_label = tkinter.Label(
-    text="\u2713", font=(FONT_NAME, 30, "bold"), bg=YELLOW, fg=GREEN
-)
+check_label = tkinter.Label(font=(FONT_NAME, 30, "bold"), bg=YELLOW, fg=GREEN)
 check_label.grid(row=3, column=1)
 
 canvas = tkinter.Canvas(width=210, height=230, bg=YELLOW, highlightthickness=0)
@@ -70,7 +80,7 @@ canvas.grid(row=1, column=1)
 start_button = tkinter.Button(text="Start", highlightthickness=0, command=start_timer)
 start_button.grid(row=2, column=0)
 
-reset_button = tkinter.Button(text="Reset", highlightthickness=0)
+reset_button = tkinter.Button(text="Reset", highlightthickness=0, command=reset_timer)
 reset_button.grid(row=2, column=2)
 
 window.mainloop()
